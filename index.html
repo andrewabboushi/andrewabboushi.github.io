@@ -6,38 +6,29 @@
 <title>Andrew Abboushi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Shippori+Mincho:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Shippori+Mincho:wght@400;500&family=Sono:wght@300;400&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
  
   :root {
     --white: #F7F4EF;
-    --black: #0D0D0D;
-    --burgundy: #6B1E2E;
-    --burgundy-light: #8B2A3E;
+    --mist: #EBE6DD;
     --stone: #C8BFB0;
     --ink: #1A1A1A;
-    --mist: #E8E3DC;
+    --ink-light: #888078;
+    --burgundy: #6B1E2E;
   }
  
-  html, body {
-    height: 100%;
-    width: 100%;
-  }
+  html { scroll-behavior: smooth; }
  
   body {
     background-color: var(--white);
     color: var(--ink);
     font-family: 'Cormorant Garamond', Georgia, serif;
-    overflow: hidden;
+    overflow-x: hidden;
     cursor: none;
   }
  
-  /* Custom cursor */
   .cursor {
     position: fixed;
     width: 6px;
@@ -47,7 +38,6 @@
     pointer-events: none;
     z-index: 9999;
     transform: translate(-50%, -50%);
-    transition: transform 0.1s ease;
   }
  
   .cursor-ring {
@@ -60,201 +50,333 @@
     z-index: 9998;
     transform: translate(-50%, -50%);
     transition: all 0.18s ease;
-    opacity: 0.5;
+    opacity: 0.45;
   }
  
-  /* Japanese mon circle — decorative background element */
-  .mon {
-    position: fixed;
-    top: 50%;
-    left: 50%;
+  /* SPLASH */
+  .splash {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    background-color: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+ 
+  .mon-outer {
+    position: absolute;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    width: 520px;
-    height: 520px;
+    width: min(70vw, 580px);
+    height: min(70vw, 580px);
     border: 1px solid var(--stone);
     border-radius: 50%;
     opacity: 0;
-    animation: fadeIn 2.4s ease 0.4s forwards;
+    animation: fadeIn 3s ease 0.3s forwards;
   }
  
-  .mon::before {
-    content: '';
+  .mon-inner {
     position: absolute;
-    top: 12px;
-    left: 12px;
-    right: 12px;
-    bottom: 12px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(62vw, 510px);
+    height: min(62vw, 510px);
     border: 1px solid var(--mist);
     border-radius: 50%;
-  }
- 
-  /* Thin horizontal rule — British editorial */
-  .rule-top {
-    position: fixed;
-    top: 48px;
-    left: 48px;
-    right: 48px;
-    height: 1px;
-    background: var(--stone);
     opacity: 0;
-    animation: fadeIn 1.2s ease 0.2s forwards;
+    animation: fadeIn 3s ease 0.6s forwards;
   }
  
-  .rule-bottom {
-    position: fixed;
-    bottom: 48px;
-    left: 48px;
-    right: 48px;
-    height: 1px;
-    background: var(--stone);
-    opacity: 0;
-    animation: fadeIn 1.2s ease 0.2s forwards;
-  }
- 
-  /* Corner marks */
   .corner {
-    position: fixed;
-    width: 16px;
-    height: 16px;
+    position: absolute;
+    width: 20px;
+    height: 20px;
     opacity: 0;
-    animation: fadeIn 1.4s ease 0.3s forwards;
+    animation: fadeIn 2s ease 0.4s forwards;
   }
+  .corner-tl { top: 36px; left: 36px; border-top: 1px solid var(--burgundy); border-left: 1px solid var(--burgundy); }
+  .corner-tr { top: 36px; right: 36px; border-top: 1px solid var(--burgundy); border-right: 1px solid var(--burgundy); }
+  .corner-bl { bottom: 36px; left: 36px; border-bottom: 1px solid var(--burgundy); border-left: 1px solid var(--burgundy); }
+  .corner-br { bottom: 36px; right: 36px; border-bottom: 1px solid var(--burgundy); border-right: 1px solid var(--burgundy); }
  
-  .corner-tl { top: 40px; left: 40px; border-top: 1px solid var(--burgundy); border-left: 1px solid var(--burgundy); }
-  .corner-tr { top: 40px; right: 40px; border-top: 1px solid var(--burgundy); border-right: 1px solid var(--burgundy); }
-  .corner-bl { bottom: 40px; left: 40px; border-bottom: 1px solid var(--burgundy); border-left: 1px solid var(--burgundy); }
-  .corner-br { bottom: 40px; right: 40px; border-bottom: 1px solid var(--burgundy); border-right: 1px solid var(--burgundy); }
- 
-  /* Main content */
-  .container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: 10;
-  }
- 
-  /* Japanese characters — vertical, left side */
-  .kanji {
-    position: fixed;
-    left: 52px;
-    top: 50%;
+  .side-left {
+    position: absolute;
+    left: 40px; top: 50%;
     transform: translateY(-50%);
     writing-mode: vertical-rl;
     font-family: 'Shippori Mincho', serif;
-    font-size: 11px;
-    letter-spacing: 0.3em;
+    font-size: 10px;
+    letter-spacing: 0.35em;
     color: var(--stone);
     opacity: 0;
-    animation: fadeIn 2s ease 1.2s forwards;
+    animation: fadeIn 2.5s ease 1.4s forwards;
   }
  
-  /* Year marker — right side */
-  .year-marker {
-    position: fixed;
-    right: 52px;
-    top: 50%;
-    transform: translateY(-50%);
+  .side-right {
+    position: absolute;
+    right: 40px; top: 50%;
+    transform: translateY(-50%) rotate(180deg);
     writing-mode: vertical-rl;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 11px;
+    font-family: 'Sono', sans-serif;
     font-weight: 300;
-    letter-spacing: 0.4em;
-    color: var(--stone);
-    opacity: 0;
-    animation: fadeIn 2s ease 1.4s forwards;
-  }
- 
-  .name {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: clamp(36px, 5vw, 58px);
-    letter-spacing: 0.22em;
-    color: var(--ink);
-    text-transform: uppercase;
-    opacity: 0;
-    animation: riseIn 1.6s ease 0.6s forwards;
-    margin-bottom: 6px;
-  }
- 
-  .name-kanji {
-    font-family: 'Shippori Mincho', serif;
-    font-size: 13px;
+    font-size: 9px;
     letter-spacing: 0.5em;
+    text-transform: uppercase;
     color: var(--stone);
     opacity: 0;
-    animation: riseIn 1.6s ease 0.9s forwards;
-    margin-bottom: 28px;
-    display: block;
+    animation: fadeIn 2.5s ease 1.6s forwards;
   }
  
-  .divider {
-    width: 40px;
+  .splash-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+ 
+  .splash-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(32px, 6vw, 72px);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink);
+    opacity: 0;
+    animation: riseIn 1.8s ease 0.7s forwards;
+    display: block;
+    margin-bottom: 10px;
+  }
+ 
+  .splash-kanji {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(10px, 1.2vw, 13px);
+    letter-spacing: 0.55em;
+    color: var(--stone);
+    opacity: 0;
+    animation: riseIn 1.8s ease 1s forwards;
+    display: block;
+    margin-bottom: 32px;
+  }
+ 
+  .splash-rule {
+    width: 0;
     height: 1px;
     background: var(--burgundy);
-    margin: 0 auto 28px;
+    margin: 0 auto 32px;
     opacity: 0;
-    animation: expandIn 1s ease 1.2s forwards;
+    animation: expandRule 1.2s ease 1.3s forwards;
   }
  
-  .tagline {
+  .splash-descriptor {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
     font-style: italic;
-    font-size: clamp(13px, 1.6vw, 16px);
-    letter-spacing: 0.15em;
-    color: #666;
+    font-size: clamp(13px, 1.5vw, 17px);
+    letter-spacing: 0.18em;
+    color: var(--ink-light);
     opacity: 0;
-    animation: riseIn 1.6s ease 1.4s forwards;
-    margin-bottom: 48px;
+    animation: riseIn 1.8s ease 1.5s forwards;
   }
  
-  .status {
-    display: inline-block;
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 400;
-    font-size: 10px;
-    letter-spacing: 0.45em;
-    text-transform: uppercase;
-    color: var(--burgundy);
-    border: 1px solid var(--burgundy);
-    padding: 8px 20px;
-    opacity: 0;
-    animation: riseIn 1.6s ease 1.8s forwards;
-  }
- 
-  /* Bottom location line */
-  .location {
-    position: fixed;
-    bottom: 56px;
+  .scroll-indicator {
+    position: absolute;
+    bottom: 40px;
     left: 50%;
     transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeIn 2s ease 2.4s forwards;
+  }
+ 
+  .scroll-indicator span {
+    font-family: 'Sono', sans-serif;
+    font-weight: 300;
+    font-size: 9px;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--stone);
+  }
+ 
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--burgundy), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+ 
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+ 
+  /* STRIPS */
+  .strip { width: 100%; padding: 100px 8vw; }
+  .strip-white { background-color: var(--white); }
+  .strip-mist { background-color: var(--mist); }
+ 
+  .strip-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+ 
+  .strip-text, .strip-audio, .press-block {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+ 
+  .strip-text.visible, .strip-audio.visible, .press-block.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+ 
+  .strip-label {
+    font-family: 'Sono', sans-serif;
+    font-weight: 300;
+    font-size: 9px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--burgundy);
+    display: block;
+    margin-bottom: 20px;
+  }
+ 
+  .strip-rule {
+    width: 32px;
+    height: 1px;
+    background: var(--burgundy);
+    margin-bottom: 28px;
+  }
+ 
+  .strip-text p {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(16px, 1.4vw, 19px);
+    line-height: 1.9;
+    color: var(--ink);
+  }
+ 
+  .strip-text p + p { margin-top: 20px; }
+ 
+  .press-quote {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
+    font-style: italic;
+    font-size: clamp(15px, 1.3vw, 18px);
+    line-height: 1.95;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+ 
+  .press-attribution {
+    font-family: 'Sono', sans-serif;
+    font-weight: 300;
     font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--burgundy);
+  }
+ 
+  .press-source {
+    font-family: 'Sono', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--stone);
+    margin-top: 5px;
+  }
+ 
+  .audio-label {
+    font-family: 'Sono', sans-serif;
+    font-weight: 300;
+    font-size: 9px;
     letter-spacing: 0.5em;
     text-transform: uppercase;
     color: var(--stone);
-    opacity: 0;
-    animation: fadeIn 2s ease 2.2s forwards;
-    white-space: nowrap;
+    display: block;
+    margin-bottom: 16px;
   }
  
-  /* Animations */
+  .strip-audio iframe { width: 100%; border-radius: 2px; }
+ 
+  /* FOOTER */
+  .footer {
+    background-color: var(--ink);
+    padding: 64px 8vw;
+    text-align: center;
+  }
+ 
+  .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--stone);
+    display: block;
+    margin-bottom: 16px;
+  }
+ 
+  .footer-rule {
+    width: 24px;
+    height: 1px;
+    background: var(--burgundy);
+    margin: 0 auto 16px;
+  }
+ 
+  .footer-contact {
+    font-family: 'Sono', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--ink-light);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+ 
+  .footer-contact:hover { color: var(--stone); }
+ 
+  .footer-year {
+    display: block;
+    font-family: 'Sono', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: #3a3a3a;
+    margin-top: 24px;
+  }
+ 
+  /* ANIMATIONS */
   @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
   }
  
   @keyframes riseIn {
-    from { opacity: 0; transform: translateY(12px); }
+    from { opacity: 0; transform: translateY(14px); }
     to { opacity: 1; transform: translateY(0); }
   }
  
-  @keyframes expandIn {
+  @keyframes expandRule {
     from { opacity: 0; width: 0; }
     to { opacity: 1; width: 40px; }
+  }
+ 
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .strip-inner { grid-template-columns: 1fr; gap: 48px; }
+    .strip { padding: 72px 6vw; }
+    .side-left, .side-right { display: none; }
   }
 </style>
 </head>
@@ -263,34 +385,91 @@
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
  
-<div class="rule-top"></div>
-<div class="rule-bottom"></div>
+<!-- SPLASH -->
+<section class="splash">
+  <div class="mon-outer"></div>
+  <div class="mon-inner"></div>
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
+  <div class="side-left">音楽家　·　思想家　·　制作者</div>
+  <div class="side-right">Pittsburgh &nbsp;·&nbsp; MMXXVI</div>
+  <div class="splash-content">
+    <span class="splash-name">Andrew Abboushi</span>
+    <span class="splash-kanji">ア ン ド リ ュ ー &nbsp;·&nbsp; ア ボ ウ シ</span>
+    <div class="splash-rule"></div>
+    <span class="splash-descriptor">Musician &nbsp;·&nbsp; Producer &nbsp;·&nbsp; Engineer</span>
+  </div>
+  <div class="scroll-indicator">
+    <span>Listen</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
  
-<div class="corner corner-tl"></div>
-<div class="corner corner-tr"></div>
-<div class="corner corner-bl"></div>
-<div class="corner corner-br"></div>
+<!-- STRIP 1 — Me + The Climber -->
+<section class="strip strip-white">
+  <div class="strip-inner">
+    <div class="strip-text">
+      <span class="strip-label">The Artist</span>
+      <div class="strip-rule"></div>
+      <p>Andrew Abboushi plays guitar, synthesizer, and bass. He produces, engineers, and arranges his own work — every element, every decision, from first note to final mix.</p>
+      <p>His deepest influences are architectural. The conviction that form and function can exist in spiritual union — that structure and atmosphere are not in opposition but expressions of the same impulse — shapes his music more than any record ever has.</p>
+      <p>The work lives in contrast. Restraint against power. Purity against obscurity. Precision and improvisation held in the same breath. Organic harmony is never imposed — it is arrived at, often through knowing when to stop rather than when to continue.</p>
+      <p>What results doesn't belong to any single tradition. Emo and math rock, neo-classical, ambient, cinematic, blues, soul, folk — these are materials, not allegiances. The music lives in the spaces between them.</p>
+    </div>
+    <div class="strip-audio">
+      <span class="audio-label">Now Playing</span>
+      <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3217221249/size=large/bgcol=333333/linkcol=ffffff/tracklist=false/artwork=small/track=1909030656/transparent=true/" seamless><a href="https://andrewabboushi.bandcamp.com/album/are-you-bored-lp">Are You Bored? (LP) by Andrew Abboushi</a></iframe>
+    </div>
+  </div>
+</section>
  
-<div class="mon"></div>
+<!-- STRIP 2 — Kitty Hawk + Press -->
+<section class="strip strip-mist">
+  <div class="strip-inner">
+    <div class="strip-audio">
+      <span class="audio-label">From the Record</span>
+      <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2570937986/size=large/bgcol=333333/linkcol=ffffff/tracklist=false/artwork=small/track=3774289422/transparent=true/" seamless><a href="https://andrewabboushi.bandcamp.com/album/kitty-hawk-ep">Kitty Hawk (EP) by Andrew Abboushi</a></iframe>
+    </div>
+    <div class="press-block">
+      <span class="strip-label">Press</span>
+      <div class="strip-rule"></div>
+      <p class="press-quote">Pittsburgh producer Andrew Abboushi creates worlds that go beyond his synthesizer. Album opener and highlight "The First Wise Man" starts out with minimal dollops of synth and guitar before building into an oscillating progression that drops out at odd moments. Individual silences expand, giving the sensation of a machine slowly swallowing up space. Finally, digitized drum, piano, and guitar noisily overwhelms everything else. When the initial piano returns, it's accompanied by an entire orchestra — just one stunning moment from an EP full of them.</p>
+      <p class="press-attribution">Hubert Adjei-Kontoh</p>
+      <p class="press-source">Pitchfork &nbsp;·&nbsp; Great Records You May Have Missed</p>
+    </div>
+  </div>
+</section>
  
-<div class="kanji">思想家　・　音楽家　・　分析家</div>
-<div class="year-marker">MMXXVI</div>
+<!-- STRIP 3 — Music + The Conspirator -->
+<section class="strip strip-white">
+  <div class="strip-inner">
+    <div class="strip-text">
+      <span class="strip-label">On Music</span>
+      <div class="strip-rule"></div>
+      <p>Music is, at its core, a study in three dimensions simultaneously — rhythm as a relationship with time, harmony as a relationship with emotion, melody as a relationship with expression. Where language separates idea from feeling, music collapses that distance entirely. The two arrive together, or not at all.</p>
+      <p>It also serves something immediate and practical. Music brings people to their feet — in cathedrals and concert halls, in headphones on a morning run, in the quiet of a room that needed filling. It gives emotional weight to ordinary stretches of life. It fuels and it soothes, often within the same track. That music can do all of this at once — can be intellectually rigorous and physically visceral and privately comforting simultaneously — is precisely what makes it worth the devotion.</p>
+    </div>
+    <div class="strip-audio">
+      <span class="audio-label">Now Playing</span>
+      <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3217221249/size=large/bgcol=333333/linkcol=ffffff/tracklist=false/artwork=small/track=693490143/transparent=true/" seamless><a href="https://andrewabboushi.bandcamp.com/album/are-you-bored-lp">Are You Bored? (LP) by Andrew Abboushi</a></iframe>
+    </div>
+  </div>
+</section>
  
-<div class="container">
-  <span class="name">Andrew Abboushi</span>
-  <span class="name-kanji">ア ン ド リ ュ ー ・ ア ボ ウ シ</span>
-  <div class="divider"></div>
-  <p class="tagline">Musician &nbsp;·&nbsp; Analyist &nbsp;·&nbsp; Technologist</p>
-  <span class="status">Coming Soon</span>
-</div>
- 
-<div class="location">United States of America &nbsp;·&nbsp; 2026</div>
+<!-- FOOTER -->
+<footer class="footer">
+  <span class="footer-name">Andrew Abboushi</span>
+  <div class="footer-rule"></div>
+  <!--<a href="mailto:contact@andrewabboushi.com" class="footer-contact">contact@andrewabboushi.com</a>-->
+  <span class="footer-year">MMXXVI</span>
+</footer>
  
 <script>
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
-  let mouseX = 0, mouseY = 0;
-  let ringX = 0, ringY = 0;
+  let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
  
   document.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
@@ -307,6 +486,17 @@
     requestAnimationFrame(animateRing);
   }
   animateRing();
+ 
+  const revealEls = document.querySelectorAll('.strip-text, .strip-audio, .press-block');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), 120);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => observer.observe(el));
 </script>
  
 </body>
