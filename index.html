@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Shippori+Mincho:wght@400;500&family=Sono:wght@300;400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
- 
+
   :root {
     --white: #F7F4EF;
     --mist: #EBE6DD;
@@ -18,9 +18,9 @@
     --ink-light: #888078;
     --burgundy: #6B1E2E;
   }
- 
+
   html { scroll-behavior: smooth; }
- 
+
   body {
     background-color: var(--white);
     color: var(--ink);
@@ -28,7 +28,7 @@
     overflow-x: hidden;
     cursor: none;
   }
- 
+
   .cursor {
     position: fixed;
     width: 6px;
@@ -39,7 +39,7 @@
     z-index: 9999;
     transform: translate(-50%, -50%);
   }
- 
+
   .cursor-ring {
     position: fixed;
     width: 28px;
@@ -52,7 +52,7 @@
     transition: all 0.18s ease;
     opacity: 0.45;
   }
- 
+
   /* SPLASH */
   .splash {
     position: relative;
@@ -66,7 +66,7 @@
     justify-content: center;
     overflow: hidden;
   }
- 
+
   .mon-outer {
     position: absolute;
     top: 50%; left: 50%;
@@ -78,7 +78,7 @@
     opacity: 0;
     animation: fadeIn 3s ease 0.3s forwards;
   }
- 
+
   .mon-inner {
     position: absolute;
     top: 50%; left: 50%;
@@ -90,7 +90,7 @@
     opacity: 0;
     animation: fadeIn 3s ease 0.6s forwards;
   }
- 
+
   .corner {
     position: absolute;
     width: 20px;
@@ -102,7 +102,7 @@
   .corner-tr { top: 36px; right: 36px; border-top: 1px solid var(--burgundy); border-right: 1px solid var(--burgundy); }
   .corner-bl { bottom: 36px; left: 36px; border-bottom: 1px solid var(--burgundy); border-left: 1px solid var(--burgundy); }
   .corner-br { bottom: 36px; right: 36px; border-bottom: 1px solid var(--burgundy); border-right: 1px solid var(--burgundy); }
- 
+
   .side-left {
     position: absolute;
     left: 40px; top: 50%;
@@ -115,7 +115,7 @@
     opacity: 0;
     animation: fadeIn 2.5s ease 1.4s forwards;
   }
- 
+
   .side-right {
     position: absolute;
     right: 40px; top: 50%;
@@ -130,13 +130,13 @@
     opacity: 0;
     animation: fadeIn 2.5s ease 1.6s forwards;
   }
- 
+
   .splash-content {
     position: relative;
     z-index: 2;
     text-align: center;
   }
- 
+
   .splash-name {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
@@ -149,7 +149,7 @@
     display: block;
     margin-bottom: 10px;
   }
- 
+
   .splash-kanji {
     font-family: 'Shippori Mincho', serif;
     font-size: clamp(10px, 1.2vw, 13px);
@@ -160,7 +160,7 @@
     display: block;
     margin-bottom: 32px;
   }
- 
+
   .splash-rule {
     width: 0;
     height: 1px;
@@ -169,7 +169,7 @@
     opacity: 0;
     animation: expandRule 1.2s ease 1.3s forwards;
   }
- 
+
   .splash-descriptor {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
@@ -180,7 +180,7 @@
     opacity: 0;
     animation: riseIn 1.8s ease 1.5s forwards;
   }
- 
+
   .scroll-indicator {
     position: absolute;
     bottom: 40px;
@@ -193,7 +193,7 @@
     opacity: 0;
     animation: fadeIn 2s ease 2.4s forwards;
   }
- 
+
   .scroll-indicator span {
     font-family: 'Sono', sans-serif;
     font-weight: 300;
@@ -202,24 +202,24 @@
     text-transform: uppercase;
     color: var(--stone);
   }
- 
+
   .scroll-line {
     width: 1px;
     height: 40px;
     background: linear-gradient(to bottom, var(--burgundy), transparent);
     animation: scrollPulse 2s ease-in-out infinite;
   }
- 
+
   @keyframes scrollPulse {
     0%, 100% { opacity: 0.4; }
     50% { opacity: 1; }
   }
- 
+
   /* STRIPS */
   .strip { width: 100%; padding: 100px 8vw; }
   .strip-white { background-color: var(--white); }
   .strip-mist { background-color: var(--mist); }
- 
+
   .strip-inner {
     max-width: 1200px;
     margin: 0 auto;
@@ -228,18 +228,100 @@
     gap: 80px;
     align-items: center;
   }
- 
+
+  /* Featured strip — larger, centered, single column */
+  .strip-featured {
+    width: 100%;
+    padding: 120px 8vw;
+    background-color: var(--mist);
+  }
+
+  .strip-featured-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+
+  .strip-featured-text {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+
+  .strip-featured-text.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .strip-featured-audio {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+
+  .strip-featured-audio.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .strip-featured-audio iframe {
+    width: 100%;
+    border-radius: 2px;
+    display: block;
+  }
+
+  .featured-label {
+    font-family: 'Sono', sans-serif;
+    font-weight: 300;
+    font-size: 9px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--burgundy);
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .featured-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(28px, 4vw, 52px);
+    letter-spacing: 0.12em;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 8px;
+    line-height: 1.1;
+  }
+
+  .featured-rule {
+    width: 32px;
+    height: 1px;
+    background: var(--burgundy);
+    margin: 24px 0;
+  }
+
+  .featured-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(14px, 1.4vw, 17px);
+    line-height: 1.85;
+    color: var(--ink-light);
+  }
+
   .strip-text, .strip-audio, .press-block {
     opacity: 0;
     transform: translateY(24px);
     transition: opacity 0.9s ease, transform 0.9s ease;
   }
- 
+
   .strip-text.visible, .strip-audio.visible, .press-block.visible {
     opacity: 1;
     transform: translateY(0);
   }
- 
+
   .strip-label {
     font-family: 'Sono', sans-serif;
     font-weight: 300;
@@ -250,14 +332,14 @@
     display: block;
     margin-bottom: 20px;
   }
- 
+
   .strip-rule {
     width: 32px;
     height: 1px;
     background: var(--burgundy);
     margin-bottom: 28px;
   }
- 
+
   .strip-text p {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 400;
@@ -265,9 +347,9 @@
     line-height: 1.9;
     color: var(--ink);
   }
- 
+
   .strip-text p + p { margin-top: 20px; }
- 
+
   .press-quote {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
@@ -277,7 +359,7 @@
     color: var(--ink);
     margin-bottom: 24px;
   }
- 
+
   .press-attribution {
     font-family: 'Sono', sans-serif;
     font-weight: 300;
@@ -286,7 +368,7 @@
     text-transform: uppercase;
     color: var(--burgundy);
   }
- 
+
   .press-source {
     font-family: 'Sono', sans-serif;
     font-weight: 300;
@@ -295,7 +377,7 @@
     color: var(--stone);
     margin-top: 5px;
   }
- 
+
   .audio-label {
     font-family: 'Sono', sans-serif;
     font-weight: 300;
@@ -306,16 +388,16 @@
     display: block;
     margin-bottom: 16px;
   }
- 
+
   .strip-audio iframe { width: 100%; border-radius: 2px; }
- 
+
   /* FOOTER */
   .footer {
     background-color: var(--ink);
     padding: 64px 8vw;
     text-align: center;
   }
- 
+
   .footer-name {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
@@ -326,14 +408,14 @@
     display: block;
     margin-bottom: 16px;
   }
- 
+
   .footer-rule {
     width: 24px;
     height: 1px;
     background: var(--burgundy);
     margin: 0 auto 16px;
   }
- 
+
   .footer-contact {
     font-family: 'Sono', sans-serif;
     font-weight: 300;
@@ -343,9 +425,9 @@
     text-decoration: none;
     transition: color 0.3s ease;
   }
- 
+
   .footer-contact:hover { color: var(--stone); }
- 
+
   .footer-year {
     display: block;
     font-family: 'Sono', sans-serif;
@@ -355,36 +437,38 @@
     color: #3a3a3a;
     margin-top: 24px;
   }
- 
+
   /* ANIMATIONS */
   @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
   }
- 
+
   @keyframes riseIn {
     from { opacity: 0; transform: translateY(14px); }
     to { opacity: 1; transform: translateY(0); }
   }
- 
+
   @keyframes expandRule {
     from { opacity: 0; width: 0; }
     to { opacity: 1; width: 40px; }
   }
- 
+
   /* RESPONSIVE */
   @media (max-width: 768px) {
     .strip-inner { grid-template-columns: 1fr; gap: 48px; }
+    .strip-featured-inner { grid-template-columns: 1fr; gap: 48px; }
     .strip { padding: 72px 6vw; }
+    .strip-featured { padding: 80px 6vw; }
     .side-left, .side-right { display: none; }
   }
 </style>
 </head>
 <body>
- 
+
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
- 
+
 <!-- SPLASH -->
 <section class="splash">
   <div class="mon-outer"></div>
@@ -406,7 +490,23 @@
     <div class="scroll-line"></div>
   </div>
 </section>
- 
+
+<!-- FEATURED STRIP — An Upward Obsession -->
+<section class="strip-featured">
+  <div class="strip-featured-inner">
+    <div class="strip-featured-text">
+      <span class="featured-label">New Release</span>
+      <span class="featured-title">An Upward Obsession</span>
+      <div class="featured-rule"></div>
+      <p class="featured-desc">The latest record. Listen from the beginning or let it find you wherever it wants to.</p>
+    </div>
+    <div class="strip-featured-audio">
+      <span class="audio-label">Listen</span>
+      <iframe style="border: 0; width: 100%; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album=2750122191/size=large/bgcol=333333/linkcol=e99708/tracklist=false/transparent=true/" seamless><a href="https://andrewabboushi.bandcamp.com/album/an-upward-obsession">An Upward Obsession by Andrew Abboushi</a></iframe>
+    </div>
+  </div>
+</section>
+
 <!-- STRIP 1 — Me + The Climber -->
 <section class="strip strip-white">
   <div class="strip-inner">
@@ -424,7 +524,7 @@
     </div>
   </div>
 </section>
- 
+
 <!-- STRIP 2 — Kitty Hawk + Press -->
 <section class="strip strip-mist">
   <div class="strip-inner">
@@ -441,7 +541,7 @@
     </div>
   </div>
 </section>
- 
+
 <!-- STRIP 3 — Music + The Conspirator -->
 <section class="strip strip-white">
   <div class="strip-inner">
@@ -457,7 +557,7 @@
     </div>
   </div>
 </section>
- 
+
 <!-- FOOTER -->
 <footer class="footer">
   <span class="footer-name">Andrew Abboushi</span>
@@ -465,19 +565,19 @@
   <!--<a href="mailto:contact@andrewabboushi.com" class="footer-contact">contact@andrewabboushi.com</a>-->
   <span class="footer-year">MMXXVI</span>
 </footer>
- 
+
 <script>
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
   let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
- 
+
   document.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
     cursor.style.left = mouseX + 'px';
     cursor.style.top = mouseY + 'px';
   });
- 
+
   function animateRing() {
     ringX += (mouseX - ringX) * 0.12;
     ringY += (mouseY - ringY) * 0.12;
@@ -486,8 +586,8 @@
     requestAnimationFrame(animateRing);
   }
   animateRing();
- 
-  const revealEls = document.querySelectorAll('.strip-text, .strip-audio, .press-block');
+
+  const revealEls = document.querySelectorAll('.strip-text, .strip-audio, .press-block, .strip-featured-text, .strip-featured-audio');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -498,6 +598,6 @@
   }, { threshold: 0.15 });
   revealEls.forEach(el => observer.observe(el));
 </script>
- 
+
 </body>
 </html>
